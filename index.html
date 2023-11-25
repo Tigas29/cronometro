@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        #time {
+            font-size: 2em;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #pausar {
+            background-color: #e44d26;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="container">
+        <p id="time">00:00:00</p>
+        <button id="iniciar">Iniciar</button>
+        <button id="zerar">Zerar</button>
+        <button id="pausar">Pausar</button>
+    </section>
+
+    <script defer>
+        const iniciar = document.getElementById("iniciar")
+        const zerar = document.getElementById("zerar")
+        const initialtimer = document.getElementById("time")
+        const pausar = document.getElementById("pausar")
+        let timer;
+        let secs = 0;
+
+        function getSecs(segundos) {
+            const time = new Date(segundos * 1000);
+            return time.toLocaleTimeString("pt-br", {
+                hour12: false,
+                timeZone: "GMT"
+            });
+        }
+
+        function initial() {
+            timer = setInterval(function () {
+                secs++;
+                initialtimer.innerHTML = getSecs(secs)
+            }, 1000)
+        }
+
+        iniciar.addEventListener("click", initial)
+
+        function stopWatch() {
+            clearInterval(timer)
+            initialtimer.style.color = '#e44d26'; // Mudar a cor para laranja quando pausado
+        }
+
+        pausar.addEventListener("click", stopWatch)
+
+        function IniticalValuerWatch() {
+            clearInterval(timer)
+            initialtimer.style.color = '#333'; // Resetar a cor para a cor original
+            initialtimer.innerHTML = "00:00:00"
+            secs = 0;
+        }
+
+        zerar.addEventListener("click", IniticalValuerWatch)
+
+    </script>
+
+</body>
+
+</html>
